@@ -1,34 +1,24 @@
 package org.vsp.mup.controller;
 
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.*;
-
-import javax.mail.MessagingException;
-import javax.mail.internet.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.vsp.mup.domain.User;
+import org.vsp.mup.service.UserActivator;
 
 @Controller
 public class RegistrationController {
 	@RequestMapping(value = "addUser")
-	public String registration() throws MessagingException {
+	public String registration(){
 		
-		JavaMailSenderImpl sender = new JavaMailSenderImpl();
-		sender.setHost("smtp.gmail.com");
-	    sender.setPort(587);
-	    sender.setUsername("musicuploadervs@gmail.com");
-	    sender.setPassword("music_187");
-	    
-		MimeMessage message = sender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message);
-		helper.setTo("lio@biz.by");
-		helper.setText("Thank you for ordering!");
-
-		SimpleMailMessage simple = new SimpleMailMessage();
-		simple.setTo("lio@biz.by");
-		simple.setText("Hello! Yeah!!!");
+		ApplicationContext context = 
+	             new ClassPathXmlApplicationContext("classpath:Spring-Mail.xml");
+		UserActivator activator = (UserActivator) context.getBean("userActivator");
 		
-		sender.send(simple);
+		activator.activateUser(new User());
+		
+		
 		
 		return "registration";
 	}
