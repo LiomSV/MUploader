@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="base.definition"
+        template="/resources/layout/layout.jsp">
+        <put-attribute name="title" value="MusicUpload" />
+        <put-attribute name="header" value="/resources/layout/header.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/resources/layout/footer.jsp" />
+    </definition>
+ 
+    <definition name="login" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+    </definition>
+    
+    <definition name="registration" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/registration.jsp" />
+    </definition>
+    
+    <definition name="home" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+    </definition>
+    
+</tiles-definitions>
