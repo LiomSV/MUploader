@@ -10,8 +10,11 @@
     <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
     
     <http pattern="/resources/**" security="none" />
-    <http pattern="/login*" security="none" />
-    <http pattern="/registration*" security="none" />
+    <http pattern="/registration*" security="none"/>
+    <http pattern="/login*" security="none" />            
+    <http pattern="/addUser*" security="none" />                
+    <http pattern="/register*" security="none" />   
+     <http pattern="/activate/**" security="none" />
     <http use-expressions="true" auto-config="true">
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />       
         <form-login login-page="/login?first=true" 

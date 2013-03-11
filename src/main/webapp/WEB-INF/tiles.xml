@@ -18,6 +18,13 @@
     <definition name="registration" extends="base.definition">      
         <put-attribute name="body" value="/WEB-INF/views/registration.jsp" />
     </definition>
+    <definition name="register" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/registration.jsp" />
+    </definition>
+    
+    <definition name="registrate" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/registration.jsp" />
+    </definition>
     
     <definition name="home" extends="base.definition">      
         <put-attribute name="body" value="/WEB-INF/views/home.jsp" />

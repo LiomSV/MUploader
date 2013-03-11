@@ -24,9 +24,14 @@
 		    </ul>             
                 <form class="form-horizontal" id="login" action="<c:url value='j_spring_security_check' />"
                         method="POST" >
+                    <c:if test="${param.activated == true}" >
+                      <div class="alert alert-success control-group">
+                          <spring:message code="activateSuccess" text="You were activated."/>
+                      </div>
+                    </c:if>
                     <c:if test="${param.fail == true}" >
                       <div class="alert alert-error control-group">
-                          <spring:message code="login.error" />
+                          <spring:message code="login.error" text="Invalid login or password!"/>
                       </div>
                     </c:if>
                     <div class="control-group">

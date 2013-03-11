@@ -55,6 +55,9 @@
                         </ul>
                     </li>							
 				</sec:authorize>
+				<sec:authorize  access="isAnonymous()">
+				    <li><a href="#"><spring:message code="loign.signin" text="Sign In" /></a></li>    
+				</sec:authorize>
 			</ul>
 		</div>
     </div>     
