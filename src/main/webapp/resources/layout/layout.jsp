@@ -6,11 +6,13 @@
 <!DOCTYPE html> 
 <html>
     <head>
+        <c:url value="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}/mup/" var="rootAddress" />
+        <base href="${rootAddress}" />
         <title><tiles:insertAttribute name="title" ignore="true" /></title>
         <link rel="stylesheet" href="<spring:theme code="styleSheet" />" type="text/css"/>
         
-        <script src="<c:url value="resources/js/jquery-1.9.1.js"/>"></script>                            
-        <script src="<c:url value="resources/js/bootstrap.js"/>"></script>
+        <script src="resources/js/jquery-1.9.1.js"></script>                            
+        <script src="resources/js/bootstrap.js"></script>
 	</head>
 	<body>
         <div class="container">

@@ -22,7 +22,14 @@
 					<li><a href="#"><spring:message code="header.search" text="Search" /></a></li>					
 				</sec:authorize> 
 				<sec:authorize  access="hasRole('ROLE_ADMIN')">
-				    <li><a href="#"><spring:message code="header.admin" text="Admin" /></a></li>
+				    <c:choose>
+                        <c:when test="${headerUsers }">
+                            <li class="active"><a href="users/1"><spring:message code="header.admin" text="Admin" /></a></li>
+                        </c:when>                           
+                        <c:otherwise>
+                            <li><a href="users/1"><spring:message code="header.admin" text="Admin" /></a></li>                            
+                        </c:otherwise>
+                    </c:choose>				    
 				</sec:authorize> 
 			</ul>
 			<ul class="nav pull-right">
@@ -32,11 +39,11 @@
 					   <b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a  href="?lang=en"><spring:message code="header.settings.en" /></a></li>
-						<li><a href="?lang=ru"><spring:message code="header.settings.ru" /></a></li>
+						<li><a  href="${path }?lang=en"><spring:message code="header.settings.en" /></a></li>
+						<li><a href="${path }?lang=ru"><spring:message code="header.settings.ru" /></a></li>
 						<li class="divider" />
-						<li><a href="?theme=light"><spring:message code="header.settings.light" /></a></li>
-						<li><a href="?theme=dark"><spring:message code="header.settings.dark" /></a></li>                            
+						<li><a href="${path }?theme=light"><spring:message code="header.settings.light" /></a></li>
+						<li><a href="${path }?theme=dark"><spring:message code="header.settings.dark" /></a></li>                            
 					</ul>
 				</li>
 				<sec:authorize  access="isAuthenticated()">                        

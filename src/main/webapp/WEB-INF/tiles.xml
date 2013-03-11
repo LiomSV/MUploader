@@ -20,7 +20,7 @@
     </definition>
     <definition name="register" extends="base.definition">      
         <put-attribute name="body" value="/WEB-INF/views/registration.jsp" />
-    </definition>
+    </definition>    
     
     <definition name="registrate" extends="base.definition">      
         <put-attribute name="body" value="/WEB-INF/views/registration.jsp" />
@@ -28,6 +28,10 @@
     
     <definition name="home" extends="base.definition">      
         <put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+    </definition>
+    
+    <definition name="users" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/users.jsp" />
     </definition>
     
 </tiles-definitions>

@@ -14,9 +14,10 @@
     <http pattern="/login*" security="none" />            
     <http pattern="/addUser*" security="none" />                
     <http pattern="/register*" security="none" />   
-     <http pattern="/activate/**" security="none" />
+    <http pattern="/activate/**" security="none" />
     <http use-expressions="true" auto-config="true">
-        <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />       
+        <intercept-url pattern="/users/**" access="hasRole('ROLE_ADMIN')" />  
+        <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />     
         <form-login login-page="/login?first=true" 
                     default-target-url="/" always-use-default-target="true"
                     authentication-failure-url="/login?fail=true" 

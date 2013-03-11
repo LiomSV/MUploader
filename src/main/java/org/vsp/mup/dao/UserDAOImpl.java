@@ -31,6 +31,11 @@ public class UserDAOImpl implements UserDAO{
 				.list();
 		return userList.size() > 0 ? (User)userList.get(0) : null;
 	
+	}
+
+	@Override
+	public User getUserById(Integer id) {
+		return (User) sessionFactory.getCurrentSession().get(User.class, id);
 	}		
 	
 }

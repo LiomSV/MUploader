@@ -49,7 +49,21 @@ public class Activation {
 	
 	@Transactional
 	public boolean activateUserByUsername(String username){
-		User user = userDAO.getUserByUsername(username);
+		return activateUser(userDAO.getUserByUsername(username));	
+	}
+	
+	@Transactional
+	public boolean activateUserById(Integer id){
+		return activateUser(userDAO.getUserById(id));		
+	}
+	
+	@Transactional
+	public boolean deactivateUserById(Integer id){
+		return deactivateUser(userDAO.getUserById(id));		
+	}
+	
+	@Transactional
+	private boolean activateUser(User user){
 		if (user == null){
 			return false;
 		}
@@ -57,5 +71,15 @@ public class Activation {
 		userDAO.updateUser(user);
 		return true;
 	}
-
+	
+	@Transactional
+	private boolean deactivateUser(User user){
+		if (user == null){
+			return false;
+		}
+		user.setEnabled(false);
+		userDAO.updateUser(user);
+		return true;
+	}
+	
 }
