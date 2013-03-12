@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<link rel="stylesheet" href="<c:url value="resources/css/tagcloud.css"/>" type="text/css"/>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<link rel="stylesheet" href="<spring:theme code="cloudStyle"/>" type="text/css"/>
     
     <script type="text/javascript" src="<c:url value="resources/js/audio-player.js"/>"></script>  
     <script type="text/javascript">  
@@ -47,6 +48,15 @@
 										    <h6><spring:message code="track.date" text="Date: " />${track.getTime() }</h6>
 										</div>
                                     </div>
+                                    <div class="row-fluid">     
+                                        <div class="span12"> 
+                                            <h6><spring:message code="track.tags" text="Tags: " />
+                                                <c:forEach items="${track.getTags() }" var="tag">
+                                                    [${tag.getTagname() }] 
+                                                </c:forEach>
+                                            </h6> 
+                                        </div>
+                                    </div> 
                                 </div>										
 							</div>
 						</div>
@@ -62,26 +72,14 @@
                 </h3>
                 <div class="tags">				
 				    <ul>
-		                <li class="tag1"><a href="#">Lorem ipsum</a></li> 
-		                <li class="tag2"><a href="#">Dolor sit amet</a></li>
-		                <li class="tag3"><a href="#">Consectetur adipiscing elit</a></li>
-		                <li class="tag2"><a href="#">Proin </a></li>
-		                <li class="tag4"><a href="#">Sagittis libero</a></li>
-		                <li class="tag1"><a href="#">Aliquet augue</a></li>
-		                <li class="tag1"><a href="#">Quisque dui lacus</a></li>
-		                <li class="tag5"><a href="#">Consequat</a></li>
-		                <li class="tag1"><a href="#">Quisque dui lacus</a></li>
-		                <li class="tag6"><a href="#">Consequat</a></li>
-		                <li class="tag2"><a href="#">Dictum non</a></li>
-		                <li class="tag1"><a href="#">Venenatis et tortor</a></li>
-		                <li class="tag3"><a href="#">Suspendisse mauris</a></li>
-		                <li class="tag7"><a href="#">In accumsan </a></li>
-		                <li class="tag1"><a href="#">Egestas neque</a></li>
-		                <li class="tag5"><a href="#">Mauris eget felis</a></li>
-		                <li class="tag1"><a href="#">Suspendisse</a></li>
-		                <li class="tag2"><a href="#">condimentum eleifend nulla</a></li>
+		                <c:forEach items="${tagList }" var="tag">
+                            <li class="tag${tag.getPopularity() }"><a href="#">${tag.getTagname() }</a></li>		                
+		                </c:forEach> 		                
 	                </ul>
 	            </div>	          	
+                <sec:authorize access="hasRole('ROLE_ADMIN')">                    
+                    <a class="btn btn-warning btn-block" href="home/updateCloud"><spring:message code="home.updateCloud" text="Update cloud" /></a>
+                </sec:authorize>
             </div>
         </div>
     </div>

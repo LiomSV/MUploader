@@ -4,8 +4,7 @@
         margin:1em 0;
         padding:.5em 10px;
         text-align:center;
-        background:#fff;
-		
+        background:#113769;
         }
     .tags li{
         margin:0;
@@ -15,11 +14,11 @@
         }
     .tags li a{
         text-decoration:none;
-        color:#7FC7FF;
+        color:#fff;
         padding:0 2px;  
         }
     .tags li a:hover{   
-        color:#3A75C4;
+        color:#DAA520 ;
         }       
     
     .tag1{font-size:100%;}

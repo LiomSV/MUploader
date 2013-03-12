@@ -15,7 +15,8 @@
     <http pattern="/addUser*" security="none" />                
     <http pattern="/register*" security="none" />   
     <http pattern="/activate/**" security="none" />
-    <http use-expressions="true" auto-config="true">
+    <http use-expressions="true" auto-config="true">        
+        <intercept-url pattern="/home/updateCloud*" access="hasRole('ROLE_ADMIN')" />
         <intercept-url pattern="/users/**" access="hasRole('ROLE_ADMIN')" />  
         <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />     
         <form-login login-page="/login?first=true" 

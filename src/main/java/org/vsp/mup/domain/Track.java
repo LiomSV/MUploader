@@ -1,14 +1,23 @@
 package org.vsp.mup.domain;
 
 import java.sql.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -148,4 +157,20 @@ public class Track {
 	public void setArtist(Artist artist) {
 		this.artist = artist;
 	}
+	
+	@Fetch (FetchMode.SELECT)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	@JoinTable(name = "Track_has_Tag", 
+		joinColumns = { @JoinColumn(name = "Track_idTrack") }, 
+		inverseJoinColumns = { @JoinColumn(name = "Tag_idTag") } )
+	private Set<Tag> tags = new TreeSet<Tag>();
+
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+	
 }

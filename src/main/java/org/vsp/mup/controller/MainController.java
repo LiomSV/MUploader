@@ -20,7 +20,6 @@ public class MainController {
 	
 	@RequestMapping(value = "/")
 	public String main(Model model, HttpServletRequest request){				
-//		model.addAttribute("path", request.getRequestURI());
 		return "redirect:/home";
 	}
 	
@@ -28,8 +27,15 @@ public class MainController {
 	public String home(Model model, HttpServletRequest request){				
 		model.addAttribute("path", request.getRequestURI());
 		model.addAttribute("trackList", homeService.getLastTracks());
+		model.addAttribute("tagList", homeService.getPopularTags());
 		return "home";
 	}
+	
+	@RequestMapping(value = "home/updateCloud")
+	public String updateCloud(Model model, HttpServletRequest request){				
+		homeService.updateTagsPopularity();		
+		return "redirect:/home";
+	}	
 	
 	@RequestMapping(value = "login")
 	public String login(Model model, HttpServletRequest request){				
