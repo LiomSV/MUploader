@@ -10,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 import org.vsp.mup.dao.ArtistDAO;
 import org.vsp.mup.dao.TagDAO;
 import org.vsp.mup.dao.TrackDAO;
@@ -21,8 +20,6 @@ import org.vsp.mup.domain.Track;
 
 @Service
 public class TrackUploadService {
-	private static final String DEFAULT_ARTIST = "artist";
-	
 	@Autowired
 	private TrackDAO trackDAO;
 	
@@ -51,24 +48,15 @@ public class TrackUploadService {
 		this.userDAO = userDAO;
 	}
 
-	@Transactional
-	public Track newTrack(){
-		Track track = new Track();
-		trackDAO.saveTrack(track);
-		return track;
-	}
-	
 	public void initiateTrack(Track track){
 		track.setRating(0);
 		track.setViews(0);
 		track.setTime(new Date());
-		track.setFile("aaaa");  //<---- THIS MUST BE REFACTORED!!!!!!!!!!!!!!!! TEMPLATE 
 	}
 	
 	@Transactional
-	public void addNewTrack(Track track, String artistName, String tagLine, String username, MultipartFile uploadForm){
+	public void addNewTrack(Track track, String artistName, String tagLine, String username){
 		initiateTrack(track);
-		track.setFile(saveToFile(uploadForm));
 		track.setTags(parseTagLine(tagLine));
 		track.setArtist(addArtist(new Artist(artistName)));
 		track.setUser(userDAO.getUserByUsername(username));
@@ -105,16 +93,28 @@ public class TrackUploadService {
 		return existedArtist;
 	}
 	
-	public String saveToFile(MultipartFile uploadForm){
+	@Transactional
+	public String saveToFile(UploadedFile uploadedFile){
 		Integer newId = trackDAO.getMaxId()+1;
-		File file = new File("d:\\Workspace\\Java Spring\\MUploader\\src\\main\\webapp\\resources\\mp3\\"
+		File file = new File("c:\\Program Files (x86)\\springsource\\vfabric-tc-server-developer-2.7.2.RELEASE\\base-instance\\wtpwebapps\\MUploader\\resources\\mp3\\"
+				+ newId + ".mp3");
+		File file2 = new File("d:\\Workspace\\Java Spring\\MUploader\\src\\main\\webapp\\resources\\mp3\\"
 				+ newId + ".mp3");
 		try{
-			FileUtils.writeByteArrayToFile(file, uploadForm.getBytes());
+			FileUtils.writeByteArrayToFile(file, uploadedFile.getFile());
+			FileUtils.writeByteArrayToFile(file2, uploadedFile.getFile());
 		} catch (Throwable e){
 			e.printStackTrace();
 		}
 		return newId.toString();
+	}
+	
+	public String deleteSpaces(String s){
+		int first;
+		for(first = 0; (first < s.length()) && (s.charAt(first) == ' '); ++first);
+		int last;
+		for(last = s.length()-1; (last > -1) && (s.charAt(last) == ' ') && (last > first); --last);		
+		return s.substring(first, last+1);
 	}
 	
 }

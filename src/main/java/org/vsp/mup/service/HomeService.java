@@ -3,6 +3,7 @@ package org.vsp.mup.service;
 import java.util.Collections;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,15 @@ public class HomeService {
 	@Transactional
 	public List<Track> getLastTracks(){
 		return trackDAO.getLastTracks(TRACKS_QUANTITY);
+	}
+	
+	@Transactional
+	public List<Track> getLastTracksWithTags(){
+		List<Track> trackList = trackDAO.getLastTracks(TRACKS_QUANTITY);
+		for(Track t : trackList){
+			Hibernate.initialize(t.getTags());
+		}
+		return trackList;		
 	}
 	
 	@Transactional
@@ -81,4 +91,5 @@ public class HomeService {
 			tagDAO.upgateTag(tag);
 		}
 	}
+	
 }

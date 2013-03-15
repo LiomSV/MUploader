@@ -38,7 +38,7 @@
                     <div class="control-group">                        
                         <label class="control-label" for="username"><spring:message code="registration.login" text="Login" /></label>
                         <div class="controls">
-                            <input type="text" id="username" name="username" placeholder="<spring:message code="registration.login" text="Login" />">
+                            <input type="text" id="username" name="username" placeholder="<spring:message code="registration.login" text="Login" />" pattern="^[a-zA-Z0-9-.]+">
                         </div>
                     </div>
                     <div class="control-group">

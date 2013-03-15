@@ -2,65 +2,71 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
-<div class="example" id="drop_zone">Drop files here</div>
-<output id="list" name="list"></output>
+        <script>
+            window.onload = function() {
+                var dropbox = document.getElementById("dropbox");
+                dropbox.addEventListener("dragenter", noop, false);
+                dropbox.addEventListener("dragexit", noop, false);
+                dropbox.addEventListener("dragover", noop, false);
+                dropbox.addEventListener("drop", dropUpload, false);
+            }
 
+            function noop(event) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
 
-<script>
-  function handleFileSelect(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
+            function dropUpload(event) {
+                noop(event);
+                var files = event.dataTransfer.files;
 
-    var files = evt.dataTransfer.files;
-    var f = files[0];
-    
-    
-    
-    var reader = new FileReader();
-    reader.onloadend = function(evt) {
-    	document.getElementById('list').textContent = evt.target.result;
-    	//document.getElementById('files').nodeValue = evt.target.result;
-    };
-    reader.readAsText(f);
- 
-    
+                for (var i = 0; i < files.length; i++) {
+                    if (files[i].name.match(/.+mp3/    ))    
+                        upload(files[i]);
+                }
+            }
 
-  }
+            function upload(file) {
+                document.getElementById("status").innerHTML = "Uploading " + file.name;
 
-  function handleDragOver(evt) {
-    evt.stopPropagation();
-    evt.preventDefault();
-    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-  }
+                var formData = new FormData();
+                formData.append("file", file);
 
-  // Setup the dnd listeners.
-  var dropZone = document.getElementById('drop_zone');
-  dropZone.addEventListener('dragover', handleDragOver, false);
-  dropZone.addEventListener('drop', handleFileSelect, false);
-</script>
+                var xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener("progress", uploadProgress, false);
+                xhr.addEventListener("load", uploadComplete, false);
+                xhr.open("POST", "upload/uploading", true); // If async=false, then you'll miss progress bar support.
+                xhr.send(formData);
+            }
 
-<form id="form1" name="form1" method="post" action="upload/test" enctype="multipart/form-data">
-    <input type="submit" value="go!" />
-    <input type="file" id="files" name="files" multiple />
-</form>
+            function uploadProgress(event) {
+                // Note: doesn't work with async=false.
+                var progress = Math.round(event.loaded / event.total * 33);
+                document.getElementById("status").style.width = progress + "%";
+                document.getElementById("statusFiller").style.width = (33-progress) + "%";
+            }
 
-<form:form method="post" action="upload/info" 
-    modelAttribute="uploadForm" enctype="multipart/form-data">
-    <div class="row-fluid">
-        <div class="span4">
-            <input name="file" type="file"  /> 
-            <input class="btn btn-primary" type="submit" value="Upload"/>
-            <c:if test="${not empty fileError}">
-                <div class="alert alert-error" style=margin-top:10px;>${fileError}</div>
-            </c:if>
+            function uploadComplete(event) {
+            	document.getElementById("continueButtonOn").style.display = "block";
+            	document.getElementById("continueButtonOff").style.display = "none";
+            	document.getElementById("status").innerHTML = "<spring:message code='upload.uploaded' text='Uploaded!' />!";
+            }
+        </script>
+
+        <div class="drop_zone"><spring:message code="upload.dropMessage" text="Drop you track anywhere at site." /></div>
+        
+        <div class="progress">
             
         </div>
-    </div>
- </form:form>
 
 
-    <div class="progress">
-        <div class="bar bar-warning" style="width: 100%;"></div>
+    <div class="span6 offset3 progress">
+        <div id="status" class="bar bar-success"></div>
+        <div id="statusFiller" class="bar bar-warning" style="width: 33%;"><spring:message code="upload.step" text="Step" /> 1</div>
+        <div class="bar bar-danger" style="width: 34%;"><spring:message code="upload.step" text="Step" /> 2</div>
+        <div class="bar bar-danger" style="width: 33%;"><spring:message code="upload.step" text="Step" /> 3</div>
     </div>   
+    <button id="continueButtonOff" class="span2 offset5 btn btn-success disabled"><spring:message code="continue" text="Continue" /></button>
+    <a id="continueButtonOn" href="upload/info" style="display:none"><button class="span2 offset5 btn btn-success"><spring:message code="continue" text="Continue" /></button></a>        
     
     

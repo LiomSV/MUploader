@@ -18,7 +18,14 @@
                             <li><a href="#"><spring:message code="header.songs.views" text="Views" /></a></li>
                         </ul>
                     </li>
-					<li><a href="upload"><spring:message code="header.upload" text="Upload" /></a></li>
+					<c:choose>
+                        <c:when test="${headerUpload == true }">
+                            <li class="active"><a href="upload"><spring:message code="header.upload" text="Upload" /></a></li>
+                        </c:when>                           
+                        <c:otherwise>
+                            <li><a href="upload"><spring:message code="header.upload" text="Upload" /></a></li>                            
+                        </c:otherwise>
+                    </c:choose> 					
 					<li><a href="#"><spring:message code="header.search" text="Search" /></a></li>					
 				</sec:authorize> 
 				<sec:authorize  access="hasRole('ROLE_ADMIN')">

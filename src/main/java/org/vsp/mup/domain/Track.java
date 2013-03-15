@@ -38,9 +38,6 @@ public class Track {
 	@Column(name="genre")
 	private String genre;
 	
-	@Column(name="file")
-	private String file;
-	
 	@Column(name="rating")
 	private Integer rating;
 	
@@ -49,12 +46,6 @@ public class Track {
 	
 	@Column(name="time")
 	private Date time;
-	
-/*	@Column(name="User_idUser")
-	private Integer idUser;
-	
-	@Column(name="Artist_idArtist")
-	private Integer idArtist;*/
 	
 	public Integer getIdTrack() {
 		return idTrack;
@@ -72,10 +63,6 @@ public class Track {
 		return genre;
 	}
 
-	public String getFile() {
-		return file;
-	}
-
 	public Integer getRating() {
 		return rating;
 	}
@@ -87,14 +74,6 @@ public class Track {
 	public Date getTime() {
 		return time;
 	}
-
-/*	public Integer getIdUser() {
-		return idUser;
-	}
-
-	public Integer getIdArtist() {
-		return idArtist;
-	}*/
 
 	public void setIdTrack(Integer idTrack) {
 		this.idTrack = idTrack;
@@ -110,10 +89,6 @@ public class Track {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
-	}
-
-	public void setFile(String file) {
-		this.file = file;
 	}
 
 	public void setRating(Integer rating) {

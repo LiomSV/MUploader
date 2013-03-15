@@ -46,5 +46,6 @@
         <definition name="uploadDone" extends="base.definition">      
         <put-attribute name="body" value="/WEB-INF/views/upload/done.jsp" />                
     </definition>
+    <definition name="upload/uploading" extends="base.definition" />
     
 </tiles-definitions>

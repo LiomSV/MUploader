@@ -6,20 +6,22 @@
     <c:choose>	  
         <c:when test="${error == true }">
             <div class="hero-unit">
-                <h1><spring:message code="notDone" text="Oops!" /></h1>
-                <p><spring:message code="notDoneMessage" text="Something was wrong :(" /></p>
+                <h1><spring:message code="upload.notDone" text="Oops!" /></h1>
+                <p><spring:message code="upload.notDoneMessage" text="Something was wrong :(" /></p>
             </div>
         </c:when>
         <c:otherwise>  
 		    <div class="hero-unit">
-			    <h1><spring:message code="done" text="Well done!" /></h1>
-			    <p><spring:message code="doneMessage" text="You song was uploaded successfully. Everybody can listen it now!" /></p>
+			    <h1><spring:message code="upload.done" text="Well done!" /></h1>
+			    <p><spring:message code="upload.doneMessage" text="You song was uploaded successfully. Everybody can listen it now!" /></p>
 			</div>
 	    </c:otherwise>
     </c:choose>
            
-    <div class="progress">
-        <div class="bar" style="width: 100%;"></div>
+    <div class="span6 offset3 progress">
+       <div class="bar bar-success" style="width: 33%;"><spring:message code="upload.step" text="Step" /> 1</div>
+       <div class="bar bar-success" style="width: 34%;"><spring:message code="upload.step" text="Step" /> 2</div>
+       <div class="bar bar-success" style="width: 33%;"><spring:message code="upload.step" text="Step" /> 3</div>
     </div>                  
-    <a href="home"><button type="submit" class="span4 offset4 btn btn-primary"><spring:message code="ok" text="OK" /></button></a>
+    <a href="home"><button type="submit" class="span4 offset4 btn btn-success"><spring:message code="ok" text="OK" /></button></a>
    

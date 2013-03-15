@@ -2,6 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <link rel="stylesheet" href="<spring:theme code="cloudStyle"/>" type="text/css"/>
+<%@ page import="org.vsp.mup.domain.Track" %>
     
     <script type="text/javascript" src="<c:url value="resources/js/audio-player.js"/>"></script>  
     <script type="text/javascript">  
@@ -29,23 +30,24 @@
 								</a>
 							</div>
 							<div id="collapse${track.getIdTrack() }" class="accordion-body collapse">
-								<div class="accordion-inner">							      				      				        								    
-								    <p id="audioplayer_${track.getIdTrack() }">Mp3 track would be here.</p>  
-								    <script type="text/javascript">  
-								        AudioPlayer.embed("audioplayer_"+${track.getIdTrack() }, {
-								            soundFile : "resources/mp3/"+${track.getIdTrack() }+".mp3",
-								            width : "100%",
-								            transparentpagebg : "yes"
-								        });  
-								    </script>
-								</div>
+								    <div class="accordion-inner">   
+                                        <p id="audioplayer_${track.getIdTrack() }">Mp3 track would be here.</p>
+                                        <script type="text/javascript">
+                                            AudioPlayer.embed("audioplayer_${track.getIdTrack() }", {
+                                                soundFile : "resources/mp3/${track.getIdTrack() }.mp3",
+                                                width : "100%",
+                                                transparentpagebg : "yes",
+                                                noinfo : "yes"
+                                            });
+                                        </script>
+                                    </div>
 								<div class="container-fluid">
                                     <div class="row-fluid">		
 									    <div class="span6">	  
 										    <h6><spring:message code="track.uploader" text="Uploader" />: <a href="#">${track.getUser().getUsername() }</a></h6>																    
 										</div>
 										<div class="span6">       
-										    <h6><spring:message code="track.date" text="Date" />: ${track.getTime() }</h6>
+										    <h6><spring:message code="track.date" text="Date" />: ${dateFormatTransformer.format(track.getTime()) }</h6>
 										</div>
                                     </div>
                                     <div class="row-fluid">     

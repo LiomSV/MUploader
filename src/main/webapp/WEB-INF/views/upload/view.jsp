@@ -1,26 +1,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-
+<%@ page contentType="text/html;charset=UTF-8" %>
         <div class="container-fluid">
             <div class="row-fluid"> 
                 <div class="span6">                                                        
                     <label class="control-label"><spring:message code="track.title" text="Title" /></label>
-                    <label class="well well-small">${track.getTitle() }</label>
+                    <input class="span12" type="text" value="${track.getTitle() }" disabled="disabled" />
                     <label class="control-label" for="artistName"><spring:message code="track.artist" text="Artist" /></label>
-                    <label class="well well-small">${artistName }</label>   
+                    <input class="span12" type="text" value="${artistName }" disabled="disabled" />
 
                     <div class="row-fluid"> 
                         <div class="span6">
                             <div class="control-group">
                                 <label class="control-label" for="genre"><spring:message code="track.genre" text="Genre" /></label>
-                                <label class="well well-small">${track.getGenre() }</label>
+                                <input class="span12" type="text" value="${track.getGenre() }" disabled="disabled" />                                
                             </div>
                         </div>                              
                         <div class="span6">    
                             <div class="control-group">
                                 <label class="control-label" for="tagLine"><spring:message code="track.tags" text="Tags" /></label>
-                                <label class="well well-small">${tagLine }</label>
+                                <input class="span12" type="text" value="${tagLine }" disabled="disabled" />
                             </div>  
                         </div>
                     </div>
@@ -36,13 +36,14 @@
             </div>   
         </div>            
            
-        <div class="progress">
-            <div class="bar" style="width: 66%;"></div>
-            <div class="bar bar-warning" style="width: 34%;"></div>
-        </div>                  
+        <div class="span6 offset3 progress">
+            <div class="bar bar-success" style="width: 33%;"><spring:message code="upload.step" text="Step" /> 1</div>
+            <div class="bar bar-success" style="width: 34%;"><spring:message code="upload.step" text="Step" /> 2</div>
+            <div class="bar bar-warning" style="width: 33%;"><spring:message code="upload.step" text="Step" /> 3</div>
+        </div>                   
                
-        <a href="upload/cancel"><button class="span2 btn btn-danger"><spring:message code="cancel" text="Cancel" /></button></a>
-        <a href="upload/done"><button class="span2 offset4 btn btn-primary"><spring:message code="continue" text="Continue" /></button></a>        
+        <a href="upload/info"><button class="offset4 span2 btn"><spring:message code="back" text="Back" /></button></a>
+        <a href="upload/done"><button class="span2 btn btn-success"><spring:message code="continue" text="Continue" /></button></a>        
 
                 <script src="resources/js/markdown.js"></script>                
                 <script>

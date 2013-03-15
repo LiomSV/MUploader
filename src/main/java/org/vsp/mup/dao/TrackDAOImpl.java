@@ -47,7 +47,7 @@ public class TrackDAOImpl implements TrackDAO {
 	@Override
 	public Integer getMaxId() {
 		return (Integer) sessionFactory.getCurrentSession()
-				.createCriteria(User.class)
+				.createCriteria(Track.class)
 				.setProjection(Projections.max("idTrack"))
 				.list().get(0);
 	}	

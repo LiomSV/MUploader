@@ -15,10 +15,11 @@
         <script src="resources/js/bootstrap.js"></script>        
         
         <style type="text/css">
-            .example{padding:10px;border:1px solid #ccc}#drop_zone{border:2px dashed #bbb;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;padding:25px;text-align:center;font:20pt bold,"Vollkorn";color:#bbb}
+            .drop_zone{border:2px dashed #bbb;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;padding:25px;text-align:center;font:20pt bold,"Vollkorn";color:#bbb;height:300px}
         </style>
 	</head>
 	<body>
+        <div id="dropbox">
         <div class="container">
             
             <div class="row">                
@@ -34,7 +35,8 @@
                 <tiles:insertAttribute name="footer" ignore="true" />
             </div>
             
-        </div>          
+        </div>       
+        </div>   
              
     </body>
 </html>
