@@ -50,4 +50,11 @@ public class Artist {
 		this.tracks = tracks;
 	}
 	
+	public Artist(){
+		
+	}
+	
+	public Artist(String name){
+		this.name = name;
+	}
 }

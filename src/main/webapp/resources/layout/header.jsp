@@ -18,7 +18,7 @@
                             <li><a href="#"><spring:message code="header.songs.views" text="Views" /></a></li>
                         </ul>
                     </li>
-					<li><a href=""><spring:message code="header.upload" text="Upload" /></a></li>
+					<li><a href="upload"><spring:message code="header.upload" text="Upload" /></a></li>
 					<li><a href="#"><spring:message code="header.search" text="Search" /></a></li>					
 				</sec:authorize> 
 				<sec:authorize  access="hasRole('ROLE_ADMIN')">

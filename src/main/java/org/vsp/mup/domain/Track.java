@@ -1,6 +1,6 @@
 package org.vsp.mup.domain;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -50,11 +50,11 @@ public class Track {
 	@Column(name="time")
 	private Date time;
 	
-	@Column(name="User_idUser")
+/*	@Column(name="User_idUser")
 	private Integer idUser;
 	
 	@Column(name="Artist_idArtist")
-	private Integer idArtist;
+	private Integer idArtist;*/
 	
 	public Integer getIdTrack() {
 		return idTrack;
@@ -88,13 +88,13 @@ public class Track {
 		return time;
 	}
 
-	public Integer getIdUser() {
+/*	public Integer getIdUser() {
 		return idUser;
 	}
 
 	public Integer getIdArtist() {
 		return idArtist;
-	}
+	}*/
 
 	public void setIdTrack(Integer idTrack) {
 		this.idTrack = idTrack;
@@ -128,13 +128,13 @@ public class Track {
 		this.time = time;
 	}
 
-	public void setIdUser(Integer idUser) {
+	/*public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
 
 	public void setIdArtist(Integer idArtist) {
 		this.idArtist = idArtist;
-	}
+	}*/
 	
 	@ManyToOne
 	private User user;
@@ -159,7 +159,7 @@ public class Track {
 	}
 	
 	@Fetch (FetchMode.SELECT)
-	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
 	@JoinTable(name = "Track_has_Tag", 
 		joinColumns = { @JoinColumn(name = "Track_idTrack") }, 
 		inverseJoinColumns = { @JoinColumn(name = "Tag_idTag") } )

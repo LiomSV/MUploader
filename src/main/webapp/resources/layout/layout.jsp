@@ -12,7 +12,11 @@
         <link rel="stylesheet" href="<spring:theme code="styleSheet" />" type="text/css"/>
         
         <script src="resources/js/jquery-1.9.1.js"></script>                            
-        <script src="resources/js/bootstrap.js"></script>
+        <script src="resources/js/bootstrap.js"></script>        
+        
+        <style type="text/css">
+            .example{padding:10px;border:1px solid #ccc}#drop_zone{border:2px dashed #bbb;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;padding:25px;text-align:center;font:20pt bold,"Vollkorn";color:#bbb}
+        </style>
 	</head>
 	<body>
         <div class="container">
@@ -23,9 +27,10 @@
             
             <div class="row">
                 <tiles:insertAttribute name="body" ignore="true" />          
-            </div>
+            </div>                                       
             
             <div class="row">
+                <br>
                 <tiles:insertAttribute name="footer" ignore="true" />
             </div>
             

@@ -42,15 +42,15 @@
 								<div class="container-fluid">
                                     <div class="row-fluid">		
 									    <div class="span6">	  
-										    <h6><spring:message code="track.uploader" text="Uploader: " /><a href="#">${track.getUser().getUsername() }</a></h6>																    
+										    <h6><spring:message code="track.uploader" text="Uploader" />: <a href="#">${track.getUser().getUsername() }</a></h6>																    
 										</div>
 										<div class="span6">       
-										    <h6><spring:message code="track.date" text="Date: " />${track.getTime() }</h6>
+										    <h6><spring:message code="track.date" text="Date" />: ${track.getTime() }</h6>
 										</div>
                                     </div>
                                     <div class="row-fluid">     
                                         <div class="span12"> 
-                                            <h6><spring:message code="track.tags" text="Tags: " />
+                                            <h6><spring:message code="track.tags" text="Tags" />: 
                                                 <c:forEach items="${track.getTags() }" var="tag">
                                                     [${tag.getTagname() }] 
                                                 </c:forEach>

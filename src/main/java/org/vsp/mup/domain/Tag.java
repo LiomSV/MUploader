@@ -63,4 +63,12 @@ public class Tag {
 		this.tracks = tracks;
 	}
 
+	public Tag(){
+		this.popularity = 0;
+	}
+	
+	public Tag(String tagname){
+		this();
+		this.tagname = tagname;
+	}
 }

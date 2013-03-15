@@ -36,6 +36,6 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public User getUserById(Integer id) {
 		return (User) sessionFactory.getCurrentSession().get(User.class, id);
-	}		
+	}	
 	
 }

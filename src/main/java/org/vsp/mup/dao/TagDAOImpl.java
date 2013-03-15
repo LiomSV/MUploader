@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.vsp.mup.domain.Tag;
@@ -36,6 +37,25 @@ public class TagDAOImpl implements TagDAO {
 	@Override
 	public void upgateTag(Tag tag) {
 		sessionFactory.getCurrentSession().update(tag);
+	}
+
+	@Override
+	public void saveTag(Tag tag) {
+		sessionFactory.getCurrentSession().save(tag);		
+	}
+
+	@Override
+	public Tag getTagById(Integer id) {
+		return (Tag) sessionFactory.getCurrentSession().get(Tag.class, id);
+	}
+
+	@Override
+	public Tag getTagByTagname(String tagname){
+		List<?> list = sessionFactory.getCurrentSession()
+				.createCriteria(Tag.class)
+				.add(Restrictions.like("tagname", tagname))
+				.list();
+		return list.size() > 0 ? (Tag) list.get(0) : null;
 	}
 
 }

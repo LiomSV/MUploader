@@ -8,8 +8,8 @@
         <put-attribute name="title" value="MusicUpload" />
         <put-attribute name="header" value="/resources/layout/header.jsp" />
         <put-attribute name="body" value="" />
-        <put-attribute name="footer" value="/resources/layout/footer.jsp" />
-    </definition>
+        <put-attribute name="footer" value="/resources/layout/footer.jsp" />                      
+    </definition>    
  
     <definition name="login" extends="base.definition">      
         <put-attribute name="body" value="/WEB-INF/views/login.jsp" />
@@ -32,6 +32,19 @@
     
     <definition name="users" extends="base.definition">      
         <put-attribute name="body" value="/WEB-INF/views/users.jsp" />
+    </definition>
+    
+    <definition name="upload" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/upload/upload.jsp" />                
+    </definition>
+    <definition name="uploadInfo" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/upload/info.jsp" />                
+    </definition>
+    <definition name="uploadView" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/upload/view.jsp" />                
+    </definition>
+        <definition name="uploadDone" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/upload/done.jsp" />                
     </definition>
     
 </tiles-definitions>
