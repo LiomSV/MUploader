@@ -6,15 +6,15 @@
             <div class="row-fluid"> 
                 <div class="span6">                                                        
                     <label class="control-label"><spring:message code="track.title" text="Title" /></label>
-                    <input class="span12" type="text" value="${track.getTitle() }" disabled="disabled" />
+                    <input class="span12" type="text" value="${id3List.get(0) }" disabled="disabled" />
                     <label class="control-label" for="artistName"><spring:message code="track.artist" text="Artist" /></label>
-                    <input class="span12" type="text" value="${artistName }" disabled="disabled" />
+                    <input class="span12" type="text" value="${id3List.get(1) }" disabled="disabled" />
 
                     <div class="row-fluid"> 
                         <div class="span6">
                             <div class="control-group">
                                 <label class="control-label" for="genre"><spring:message code="track.genre" text="Genre" /></label>
-                                <input class="span12" type="text" value="${track.getGenre() }" disabled="disabled" />                                
+                                <input class="span12" type="text" value="${id3List.get(2) }" disabled="disabled" />                                
                             </div>
                         </div>                              
                         <div class="span6">    
@@ -29,7 +29,7 @@
                 <div class="span6">    
                     <div class="control-group">
                         <label class="control-label" for="description"><spring:message code="track.description" text="Description" /></label>
-                        <textarea id="description" rows="1" cols="1" style="display: none">${track.getDescription() }</textarea>
+                        <textarea id="description" rows="1" cols="1" style="display: none">${id3List.get(3) }</textarea>
                         <div id="descriptionView"> </div>  
                     </div>                      
                  </div> 

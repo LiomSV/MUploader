@@ -3,6 +3,7 @@ package org.vsp.mup.service;
 import java.io.File;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -17,9 +18,17 @@ import org.vsp.mup.dao.UserDAO;
 import org.vsp.mup.domain.Artist;
 import org.vsp.mup.domain.Tag;
 import org.vsp.mup.domain.Track;
+import org.vsp.mup.helper.ID3Service;
+import org.vsp.mup.helper.StringHelper;
+import org.vsp.mup.helper.UploadedFile;
 
 @Service
 public class TrackUploadService {
+	public static final int TITLE = 0;
+	public static final int ARTIST = 1;
+	public static final int GENRE = 2;
+	public static final int COMMENT = 3;
+	
 	@Autowired
 	private TrackDAO trackDAO;
 	
@@ -57,10 +66,11 @@ public class TrackUploadService {
 	@Transactional
 	public void addNewTrack(Track track, String artistName, String tagLine, String username){
 		initiateTrack(track);
+		correctTrack(track, artistName);
 		track.setTags(parseTagLine(tagLine));
-		track.setArtist(addArtist(new Artist(artistName)));
-		track.setUser(userDAO.getUserByUsername(username));
+		track.setArtist(addArtist(new Artist(artistName)));		
 		trackDAO.saveTrack(track);		
+		ID3Service.updateID3(track);
 	}
 	
 	public Set<Tag> parseTagLine(String tagLine){
@@ -74,7 +84,13 @@ public class TrackUploadService {
 		}
 		return tags;
 	}
-	
+		
+	/**
+	 * 	Method returns tag from database, if tag with identical tagname already exists,
+	 * or just add new tag to database. 
+	 * @param tag
+	 * @return
+	 */
 	public Tag addTag(Tag tag){
 		Tag existedTag = tagDAO.getTagByTagname(tag.getTagname());
 		if (existedTag == null){
@@ -84,6 +100,12 @@ public class TrackUploadService {
 		return existedTag;
 	}
 	
+	/**
+	 * 	Method returns artist from database, if artist with identical name already exists,
+	 * or just add new artist to database.
+	 * @param artist
+	 * @return
+	 */
 	public Artist addArtist(Artist artist){
 		Artist existedArtist = artistDAO.getAritstByName(artist.getName());
 		if (existedArtist == null){
@@ -93,28 +115,39 @@ public class TrackUploadService {
 		return existedArtist;
 	}
 	
+	/**
+	 * 	Method fills file in track by generated from idTrack and username value,
+	 * save uploadedFile to this file and returns ID3 from it.   
+	 * @param uploadedFile
+	 * @param track
+	 * @param username
+	 * @return
+	 */
 	@Transactional
-	public String saveToFile(UploadedFile uploadedFile){
+	public List<String> saveToFileAndGetID3(UploadedFile uploadedFile, Track track, String username){
 		Integer newId = trackDAO.getMaxId()+1;
+		track.setUser(userDAO.getUserByUsername(username));
+		track.setFile(newId + "_" + track.getUser().getIdUser());
 		File file = new File("c:\\Program Files (x86)\\springsource\\vfabric-tc-server-developer-2.7.2.RELEASE\\base-instance\\wtpwebapps\\MUploader\\resources\\mp3\\"
-				+ newId + ".mp3");
+				+ track.getFile() + ".mp3");
 		File file2 = new File("d:\\Workspace\\Java Spring\\MUploader\\src\\main\\webapp\\resources\\mp3\\"
-				+ newId + ".mp3");
+				+ track.getFile() + ".mp3");
 		try{
 			FileUtils.writeByteArrayToFile(file, uploadedFile.getFile());
 			FileUtils.writeByteArrayToFile(file2, uploadedFile.getFile());
 		} catch (Throwable e){
 			e.printStackTrace();
 		}
-		return newId.toString();
-	}
+		return ID3Service.getID3(file);
+	}	
 	
-	public String deleteSpaces(String s){
-		int first;
-		for(first = 0; (first < s.length()) && (s.charAt(first) == ' '); ++first);
-		int last;
-		for(last = s.length()-1; (last > -1) && (s.charAt(last) == ' ') && (last > first); --last);		
-		return s.substring(first, last+1);
+	/**
+	 * 	Method makes corrections for track title, track genre and artist name before use it.
+	 * (Deletes unnecessary spaces at track title, track genre and artist name in this implementation)
+	 */
+	private void correctTrack(Track track, String artistName){
+		track.setTitle(StringHelper.deleteSpaces(track.getTitle()));
+		track.setGenre(StringHelper.deleteSpaces(track.getGenre()));
+		artistName = StringHelper.deleteSpaces(artistName);
 	}
-	
 }

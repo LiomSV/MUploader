@@ -11,6 +11,7 @@ import org.vsp.mup.dao.TagDAO;
 import org.vsp.mup.dao.TrackDAO;
 import org.vsp.mup.domain.Tag;
 import org.vsp.mup.domain.Track;
+import org.vsp.mup.helper.TagComparator;
 
 @Service
 public class HomeService {
@@ -31,14 +32,9 @@ public class HomeService {
 	public void setTagDAO(TagDAO tagDAO) {
 		this.tagDAO = tagDAO;
 	}
-
-	@Transactional
-	public List<Track> getLastTracks(){
-		return trackDAO.getLastTracks(TRACKS_QUANTITY);
-	}
 	
 	@Transactional
-	public List<Track> getLastTracksWithTags(){
+	public List<Track> getLastTracks(){
 		List<Track> trackList = trackDAO.getLastTracks(TRACKS_QUANTITY);
 		for(Track t : trackList){
 			Hibernate.initialize(t.getTags());

@@ -13,9 +13,9 @@
                           <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><spring:message code="header.songs.artist" text="Artist" /></a></li>
-                            <li><a href="#"><spring:message code="header.songs.rating" text="Raiting" /></a></li>
-                            <li><a href="#"><spring:message code="header.songs.views" text="Views" /></a></li>
+                            <li><a href="artists"><spring:message code="header.songs.artist" text="Artist" /></a></li>
+                            <li><a href="rating"><spring:message code="header.songs.rating" text="Raiting" /></a></li>
+                            <li><a href="views"><spring:message code="header.songs.views" text="Views" /></a></li>
                         </ul>
                     </li>
 					<c:choose>
@@ -56,11 +56,11 @@
 				<sec:authorize  access="isAuthenticated()">                        
 					<li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                          <sec:authentication property="principal.username" />
+                          <i class="icon-user <spring:theme code="icon" />"></i> <sec:authentication property="principal.username" />
                           <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><spring:message code="header.user.profile" text="Profile" /></a></li>
+                            <li><a href="user"><spring:message code="header.user.profile" text="Profile" /></a></li>
                             <li><a href="#"><spring:message code="header.user.myplaylists" text="My playlist" /></a></li>
                             <li class="divider" />
                             <li><a href="<c:url value="j_spring_security_logout" />" >

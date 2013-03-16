@@ -43,9 +43,33 @@
     <definition name="uploadView" extends="base.definition">      
         <put-attribute name="body" value="/WEB-INF/views/upload/view.jsp" />                
     </definition>
-        <definition name="uploadDone" extends="base.definition">      
+    <definition name="uploadDone" extends="base.definition">      
         <put-attribute name="body" value="/WEB-INF/views/upload/done.jsp" />                
     </definition>
     <definition name="upload/uploading" extends="base.definition" />
     
+    <definition name="tag" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/tag.jsp" />                
+    </definition>
+    
+    <definition name="artist" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/artist.jsp" />                
+    </definition>
+    <definition name="artists" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/songList/artists.jsp" />                
+    </definition>
+    
+    <definition name="ratingOrViews" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/songList/ratingOrViews.jsp" />                
+    </definition>
+    
+    <definition name="user" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/user.jsp" />                
+    </definition>
+    <definition name="userLike" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/user/userLike.jsp" />                
+    </definition>
+    <definition name="userViews" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/user/userViews.jsp" />                
+    </definition>
 </tiles-definitions>

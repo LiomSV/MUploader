@@ -13,13 +13,13 @@
 			        <div class="control-group">                        
 			            <label class="control-label" for="title"><spring:message code="track.title" text="Title" /></label>
 			            <div class="controls">
-			                <input class="span12" type="text" id="title" name="title" value="${track.getTitle() }" placeholder="<spring:message code="track.title" text="Title" />">
+			                <input class="span12" type="text" id="title" name="title" value="${id3List.get(0) }" placeholder="<spring:message code="track.title" text="Title" />">
 			            </div>
 			        </div>
 			        <div class="control-group">
 			            <label class="control-label" for="artistName"><spring:message code="track.artist" text="Artist" /></label>
 			            <div class="controls">
-			                <input class="span12" type="text" id="artistName" name="artistName" value="${artistName }" placeholder="<spring:message code="track.artist" text="Artist" />">
+			                <input class="span12" type="text" id="artistName" name="artistName" value="${id3List.get(1) }" placeholder="<spring:message code="track.artist" text="Artist" />">
 			            </div>
 			        </div>   
 
@@ -28,7 +28,7 @@
 						        <div class="control-group">
 						            <label class="control-label" for="genre"><spring:message code="track.genre" text="Genre" /></label>
 						            <div class="controls">
-						                <input type="text" id="genre" name="genre" value="${track.getGenre() }" placeholder="<spring:message code="track.genre" text="Genre" />">
+						                <input type="text" id="genre" name="genre" value="${id3List.get(2) }" placeholder="<spring:message code="track.genre" text="Genre" />">
 						            </div>
 						        </div>
                             </div>						        
@@ -47,7 +47,7 @@
 				    <div class="control-group">
 				        <label class="control-label" for="description"><spring:message code="track.description" text="Description" /></label>
 					    <textarea id="description" name="description" style="resize: none"
-					        class="span12" rows="15" cols="60" placeholder="<spring:message code="track.typeDescription" text="Type description here." />" >${track.getDescription() }</textarea>
+					        class="span12" rows="15" cols="60" placeholder="<spring:message code="track.typeDescription" text="Type description here." />" >${id3List.get(3) }</textarea>
 				    </div>	    			    
 				 </div> 
 		    </div>   

@@ -1,6 +1,7 @@
 package org.vsp.mup.domain;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
@@ -46,6 +48,9 @@ public class Track {
 	
 	@Column(name="time")
 	private Date time;
+
+	@Column(name="file")
+	private String file;
 	
 	public Integer getIdTrack() {
 		return idTrack;
@@ -75,6 +80,10 @@ public class Track {
 		return time;
 	}
 
+	public String getFile() {
+		return file;
+	}
+
 	public void setIdTrack(Integer idTrack) {
 		this.idTrack = idTrack;
 	}
@@ -102,15 +111,11 @@ public class Track {
 	public void setTime(Date time) {
 		this.time = time;
 	}
-
-	/*public void setIdUser(Integer idUser) {
-		this.idUser = idUser;
+	
+	public void setFile(String file) {
+		this.file = file;
 	}
 
-	public void setIdArtist(Integer idArtist) {
-		this.idArtist = idArtist;
-	}*/
-	
 	@ManyToOne
 	private User user;
 	
@@ -146,6 +151,17 @@ public class Track {
 
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
+	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "track")
+	private List<Event> events;
+
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
 	}
 	
 }

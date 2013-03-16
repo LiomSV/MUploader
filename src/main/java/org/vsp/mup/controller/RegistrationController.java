@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.vsp.mup.domain.User;
+import org.vsp.mup.helper.AddressBuilder;
 import org.vsp.mup.service.Activation;
-import org.vsp.mup.service.AddressBuilder;
 import org.vsp.mup.service.RegistrationValidator;
 import org.vsp.mup.service.UserRegistration;
 

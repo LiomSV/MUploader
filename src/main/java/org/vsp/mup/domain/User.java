@@ -84,4 +84,15 @@ public class User {
 		this.tracks = tracks;
 	}
 	
+	@OneToMany(mappedBy = "user")
+	private List<Event> events;
+
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
+	
 }

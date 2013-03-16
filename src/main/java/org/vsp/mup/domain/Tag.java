@@ -1,7 +1,7 @@
 package org.vsp.mup.domain;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -53,13 +53,13 @@ public class Tag {
 	}
 		
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "tags")
-	private Set<Track> tracks = new HashSet<Track>();
+	private List<Track> tracks = new ArrayList<Track>();
 
-	public Set<Track> getTracks() {
+	public List<Track> getTracks() {
 		return tracks;
 	}
 
-	public void setTracks(Set<Track> tracks) {
+	public void setTracks(List<Track> tracks) {
 		this.tracks = tracks;
 	}
 

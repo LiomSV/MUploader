@@ -2,6 +2,8 @@ package org.vsp.mup.dao;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -18,13 +20,12 @@ public class TrackDAOImpl implements TrackDAO {
 	
 	@Override
 	public Track getTrackById(Integer id) {
-		return (Track)sessionFactory.getCurrentSession().get(Track.class, id);		 
+		return (Track) currentSession().get(Track.class, id);		 
 	}
 
 	@Override
 	public List<Track> getLastTracks(Integer n) {
-		return (List<Track>) sessionFactory.getCurrentSession()
-			.createCriteria(Track.class)
+		return (List<Track>) criteria()
 			.addOrder(Order.desc("idTrack"))
 			.setMaxResults(n)
 			.list();
@@ -32,23 +33,42 @@ public class TrackDAOImpl implements TrackDAO {
 
 	@Override
 	public void saveTrack(Track track) {
-		sessionFactory.getCurrentSession().save(track);		
+		currentSession().save(track);		
 	}
 
 	@Override
 	public Track getTrackByTitle(String title) {
-		List<?> list = sessionFactory.getCurrentSession()
-			.createCriteria(Track.class)
-			.add(Restrictions.like("title", title))
-			.list();
+		List<?> list = criteria().add(Restrictions.like("title", title)).list();
 		return list.size() > 0 ? (Track) list.get(0) : null;
 	}
 
 	@Override
 	public Integer getMaxId() {
-		return (Integer) sessionFactory.getCurrentSession()
-				.createCriteria(Track.class)
+		return (Integer) criteria()
 				.setProjection(Projections.max("idTrack"))
 				.list().get(0);
+	}
+
+	@Override
+	public List<Track> getTracksByRating() {
+		return (List<Track>) criteria()
+				.addOrder(Order.desc("rating"))
+				.list();
 	}	
+	
+	@Override
+	public List<Track> getTracksByViews() {
+		return (List<Track>) criteria()
+				.addOrder(Order.desc("views"))
+				.list();
+	}
+	
+	private Session currentSession(){
+		return sessionFactory.getCurrentSession();
+	}
+	
+	private Criteria criteria(){
+		return sessionFactory.getCurrentSession().createCriteria(Track.class);
+	}
+
 }

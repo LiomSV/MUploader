@@ -1,5 +1,7 @@
 package org.vsp.mup.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,7 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 import org.vsp.mup.domain.Track;
-import org.vsp.mup.service.UploadedFile;
+import org.vsp.mup.helper.ID3Service;
+import org.vsp.mup.helper.UploadedFile;
 import org.vsp.mup.service.TrackUploadService;
 
 @Controller
@@ -31,15 +34,12 @@ public class UploadController {
 		model.addAttribute("headerUpload", true);
 		return "upload";
 	}
-	
-	
+		
 	@RequestMapping(value = "/upload/info")
 	public String songEdit(Model model, HttpServletRequest request){				
 		model.addAttribute("path", request.getRequestURI());
 		model.addAttribute("headerUpload", true);
-		model.addAttribute(track);		
-		model.addAttribute("artistName",artistName);
-		model.addAttribute("tagLine" ,tagLine);
+		model.addAttribute("id3List", id3List);
 		return "uploadInfo";
 	}
 	
@@ -50,12 +50,10 @@ public class UploadController {
 		model.addAttribute("path", request.getRequestURI());	
 		model.addAttribute("headerUpload", true);
 		trackUploadService.initiateTrack(track);
-		model.addAttribute(track);		
-		model.addAttribute("artistName",artistName);
-		model.addAttribute("tagLine" ,tagLine);	
-		this.track = track;
+		this.track = mergeTracks(this.track, track);
 		this.artistName = artistName;
-		this.tagLine = tagLine;
+		ID3Service.initID3List(id3List, track, artistName);
+		model.addAttribute("id3List", id3List);
 		return "uploadView";
 	}
 	
@@ -63,7 +61,7 @@ public class UploadController {
 	public String done(Model model, HttpServletRequest request){
 		if (track != null){
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
-			trackUploadService.addNewTrack(track, artistName, tagLine, username);
+			trackUploadService.addNewTrack(track, artistName, tagLine, username);			
 		} else {
 			model.addAttribute("error", true);
 		}
@@ -77,9 +75,24 @@ public class UploadController {
 	
 	@RequestMapping(value = "/upload/uploading")
 	public void test(Model model, HttpServletRequest request, @ModelAttribute("file") UploadedFile uploadedFile){
-		trackUploadService.saveToFile(uploadedFile);
+		id3List = trackUploadService.saveToFileAndGetID3(uploadedFile, track, SecurityContextHolder.getContext().getAuthentication().getName());
 	}
 	
 	private Track track = new Track();
 	private String artistName = "", tagLine = "";
+	private List<String> id3List;
+	
+	private Track mergeTracks(Track first, Track second){
+		Track track = new Track();
+		
+		track.setFile(first.getFile());
+		track.setUser(first.getUser());
+		
+		track.setTitle(second.getTitle());
+		track.setArtist(second.getArtist());
+		track.setGenre(second.getGenre());
+		track.setDescription(second.getDescription());
+		
+		return track;
+	}
 }

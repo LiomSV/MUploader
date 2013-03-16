@@ -7,7 +7,6 @@
     <script type="text/javascript" src="<c:url value="resources/js/audio-player.js"/>"></script>  
     <script type="text/javascript">  
         AudioPlayer.setup("<c:url value='resources/player.swf'/>", {  
-            width: 290
         });  
     </script>
     
@@ -30,21 +29,13 @@
 								</a>
 							</div>
 							<div id="collapse${track.getIdTrack() }" class="accordion-body collapse">
-								    <div class="accordion-inner">   
-                                        <p id="audioplayer_${track.getIdTrack() }">Mp3 track would be here.</p>
-                                        <script type="text/javascript">
-                                            AudioPlayer.embed("audioplayer_${track.getIdTrack() }", {
-                                                soundFile : "resources/mp3/${track.getIdTrack() }.mp3",
-                                                width : "100%",
-                                                transparentpagebg : "yes",
-                                                noinfo : "yes"
-                                            });
-                                        </script>
-                                    </div>
+								    <table class="table">
+								        <%@ include file="endOfTable.jsp" %>
+								    </table>
 								<div class="container-fluid">
                                     <div class="row-fluid">		
 									    <div class="span6">	  
-										    <h6><spring:message code="track.uploader" text="Uploader" />: <a href="#">${track.getUser().getUsername() }</a></h6>																    
+										    <h6><spring:message code="track.uploader" text="Uploader" />: <a href="user/${track.getUser().getIdUser() }">${track.getUser().getUsername() }</a></h6>																    
 										</div>
 										<div class="span6">       
 										    <h6><spring:message code="track.date" text="Date" />: ${dateFormatTransformer.format(track.getTime()) }</h6>
@@ -52,11 +43,11 @@
                                     </div>
                                     <div class="row-fluid">     
                                         <div class="span12"> 
-                                            <h6><spring:message code="track.tags" text="Tags" />: 
+                                            
                                                 <c:forEach items="${track.getTags() }" var="tag">
-                                                    [${tag.getTagname() }] 
+                                                    <a href="tag/${tag.getIdTag() }/1"><span class="label label-success">${tag.getTagname() }</span></a> 
                                                 </c:forEach>
-                                            </h6> 
+                                             
                                         </div>
                                     </div> 
                                 </div>										
@@ -75,7 +66,7 @@
                 <div class="tags">				
 				    <ul>
 		                <c:forEach items="${tagList }" var="tag">
-                            <li class="tag${tag.getPopularity() }"><a href="#">${tag.getTagname() }</a></li>		                
+                            <li class="tag${tag.getPopularity() }"><a href="tag/${tag.getIdTag() }/1">${tag.getTagname() }</a></li>		                
 		                </c:forEach> 		                
 	                </ul>
 	            </div>	          	
