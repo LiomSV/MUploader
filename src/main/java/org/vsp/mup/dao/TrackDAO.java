@@ -5,7 +5,9 @@ import java.util.List;
 import org.vsp.mup.domain.Track;
 
 public interface TrackDAO {
-	public void saveTrack(Track track);
+	public void save(Track track);
+	
+	public void update(Track track);
 	
 	public Track getTrackById(Integer id);
 	

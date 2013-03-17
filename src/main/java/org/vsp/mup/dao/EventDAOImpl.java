@@ -33,31 +33,34 @@ public class EventDAOImpl implements EventDAO {
 	@Override
 	public void save(Event event) {
 		currentSession().save(event);
+	}	
+
+	@Override
+	public List<Event> getEvents(Track track, User user, Integer code) {
+		 return (List<Event>) criteria()
+				.add(Restrictions.like("code", code))
+				.add(Restrictions.like("track", track))
+				.add(Restrictions.like("user",user))
+				.list();
+	}
+	
+	@Override
+	public void unlike(Track track, User user) {
+		Event like = getEvents(track, user, Event.CODE_LIKE).get(0);
+		currentSession().delete(like);
 	}
 
 	@Override
 	public boolean isLiked(Track track, User user) {
-		List<?> list = criteria()
-				.add(Restrictions.like("code", CODE_LIKE))
-				.add(Restrictions.like("track", track))
-				.add(Restrictions.like("user",user))
-				.list();
+		List<?> list = getEvents(track, user, Event.CODE_LIKE);
 		return list.size() > 0 ? true : false;
 	}
 
 	@Override
-	public List<Event> getLikes(User user) {
+	public List<Event> getAllEvents(User user, Integer code) {
 		return (List<Event>) criteria()
-				.add(Restrictions.like("code", CODE_LIKE))
+				.add(Restrictions.like("code", code))
 				.add(Restrictions.like("user", user))
-				.list();
-	}
-
-	@Override
-	public List<Event> getViews(User user) {
-		return (List<Event>) criteria()
-				.add(Restrictions.like("code", CODE_VIEW))
-				.add(Restrictions.like("user",user))
 				.list();
 	}
 

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.vsp.mup.domain.Event;
+import org.vsp.mup.helper.TagValueList;
 import org.vsp.mup.service.ProfileService;
 
 @Controller
@@ -33,21 +35,24 @@ public class ProfileController {
 	
 	@RequestMapping(value = "user/{idUser}/like")
 	public String userLike(Model model, HttpServletRequest request, @PathVariable Integer idUser){
-		model.addAttribute("path", request.getRequestURI());
+		initModel(model, request, idUser, Event.CODE_LIKE);
 		model.addAttribute("sort", "like");
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();	
-		model.addAttribute("username", username);
-		model.addAttribute("data", service.getLikes(username));
 		return "user";
 	}
 	
 	@RequestMapping(value = "user/{idUser}/views")
 	public String userViews(Model model, HttpServletRequest request, @PathVariable Integer idUser){
-		model.addAttribute("path", request.getRequestURI());
+		initModel(model, request, idUser, Event.CODE_VIEW);
 		model.addAttribute("sort", "views");
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();	
-		model.addAttribute("username", username);
-		model.addAttribute("data", service.getViews(username));
 		return "user";
 	}
+	
+	private void initModel(Model model, HttpServletRequest request, Integer idUser, Integer code){
+		model.addAttribute("path", request.getRequestURI());	
+		model.addAttribute("username", service.getUsername(idUser));
+		TagValueList data = service.getData(idUser, code);
+		model.addAttribute("data", data);
+		model.addAttribute("isEmpty", data.isEmpty());
+	}
+	
 }

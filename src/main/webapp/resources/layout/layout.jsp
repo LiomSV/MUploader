@@ -11,12 +11,17 @@
         <title><tiles:insertAttribute name="title" ignore="true" /></title>
         <link rel="stylesheet" href="<spring:theme code="styleSheet" />" type="text/css"/>
         
-        <script src="resources/js/jquery-1.9.1.js"></script>                            
-        <script src="resources/js/bootstrap.js"></script>        
+        <script src="resources/js/jquery-1.9.1.js"></script>                                   
+        <script src="resources/js/bootstrap.js"></script> 
+               
         
         <style type="text/css">
             .drop_zone{border:2px dashed #bbb;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;padding:25px;text-align:center;font:20pt bold,"Vollkorn";color:#bbb;height:300px}
         </style>
+        
+        <script type="text/javascript" src="<c:url value="resources/js/jquery.min.js"/>"></script>
+	    <script type="text/javascript" src="<c:url value="resources/js/jquery.swfobject.min.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="resources/js/audioplayer.js"/>"></script>               
 	</head>
 	<body>
         <div id="dropbox">

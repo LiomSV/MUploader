@@ -13,6 +13,18 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "event")
 public class Event {
+	public static final Integer CODE_LIKE = 1;
+	public static final Integer CODE_VIEW = 2;
+	
+	public Event(){		
+	}
+	
+	public Event(Integer code, Track track, User user) {
+		this.code = code;
+		this.track = track;
+		this.user = user;
+	}
+
 	@Id
 	@GeneratedValue(generator="increment")
 	@GenericGenerator(name="increment", strategy = "increment")

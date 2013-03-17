@@ -4,20 +4,14 @@
 <link rel="stylesheet" href="<spring:theme code="cloudStyle"/>" type="text/css"/>
 <%@ page import="org.vsp.mup.domain.Track" %>
     
-    <script type="text/javascript" src="<c:url value="resources/js/audio-player.js"/>"></script>  
-    <script type="text/javascript">  
-        AudioPlayer.setup("<c:url value='resources/player.swf'/>", {  
-        });  
-    </script>
-    
     	
 	<div class="container-fluid">
 	    <div class="row-fluid">
             
             <div class="span8">
                 <h3 align="center">    
-                    <spring:message code="home.lastuploaded" text="Last Uploaded" />
-                </h3>                
+                    <spring:message code="home.lastuploaded" text="Last Uploaded" />                    
+                </h3>              
                                 
                 <div class="accordion" id="accordion">
 					

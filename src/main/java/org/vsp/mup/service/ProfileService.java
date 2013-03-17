@@ -33,19 +33,16 @@ public class ProfileService {
 	}
 	
 	@Transactional
-	public TagValueList getLikes(String username){
-		TagValueList likes = new TagValueList();
-		List<Event> eventList = eventDAO.getLikes(userDAO.getUserByUsername(username));
-		parseEventList(eventList, likes);
-		return likes;
+	public String getUsername(Integer idUser){
+		return userDAO.getUserById(idUser).getUsername();
 	}
 	
 	@Transactional
-	public TagValueList getViews(String username){
-		TagValueList views = new TagValueList();
-		List<Event> eventList = eventDAO.getViews(userDAO.getUserByUsername(username));
-		parseEventList(eventList, views);
-		return views;
+	public TagValueList getData(Integer idUser, Integer code){
+		TagValueList data = new TagValueList();
+		List<Event> eventList = eventDAO.getAllEvents(userDAO.getUserById(idUser), code);
+		parseEventList(eventList, data);
+		return data;
 	}
 	
 	@Transactional

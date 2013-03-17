@@ -66,4 +66,8 @@ public class TagValueList {
 		return new String(buffer);
 	}
 	
+	public boolean isEmpty(){
+		return tagnameList.isEmpty() && tagIdList.isEmpty();
+	}
+	
 }

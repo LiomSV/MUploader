@@ -32,8 +32,13 @@ public class TrackDAOImpl implements TrackDAO {
 	}
 
 	@Override
-	public void saveTrack(Track track) {
+	public void save(Track track) {
 		currentSession().save(track);		
+	}
+	
+	@Override
+	public void update(Track track){
+		currentSession().update(track);
 	}
 
 	@Override
