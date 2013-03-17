@@ -3,11 +3,13 @@ package org.vsp.mup.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.vsp.mup.domain.Tag;
+import org.vsp.mup.service.PlaylistService;
 import org.vsp.mup.service.TagPageService;
 
 @Controller
@@ -17,6 +19,17 @@ public class TagController {
 	
 	public void setTagPageService(TagPageService tagPageService) {
 		this.tagPageService = tagPageService;
+	}
+	
+	@Autowired
+	private PlaylistService playlistService;
+	
+	public void setPlaylistService(PlaylistService playlistService) {
+		this.playlistService = playlistService;
+	}
+	
+	private String getUsername(){
+		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
 	@RequestMapping(value = "tag/{idTag}")
@@ -32,6 +45,7 @@ public class TagController {
 		model.addAttribute(tag);
 		model.addAttribute("pages", tagPageService.getPagesQuantity(tag));
 		model.addAttribute("trackList", tagPageService.getTracksForPage(tag, page));
+		model.addAttribute("lists", playlistService.getPlaylistsByUsername(getUsername()));
 		return "tag";
 	}
 }

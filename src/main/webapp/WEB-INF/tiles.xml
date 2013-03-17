@@ -69,5 +69,12 @@
     <definition name="user" extends="base.definition">      
         <put-attribute name="body" value="/WEB-INF/views/user.jsp" />                
     </definition>    
+        
+    <definition name="playlists" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/playlists.jsp" />                
+    </definition>
+    <definition name="playlist" extends="base.definition">      
+        <put-attribute name="body" value="/WEB-INF/views/playlist.jsp" />                
+    </definition>
     
 </tiles-definitions>

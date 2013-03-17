@@ -5,12 +5,14 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.vsp.mup.domain.Tag;
 import org.vsp.mup.domain.Track;
+import org.vsp.mup.service.PlaylistService;
 import org.vsp.mup.service.RatingAndViewsService;
 
 @Controller
@@ -20,6 +22,17 @@ public class RatingAndViewsController {
 
 	public void setService(RatingAndViewsService service) {
 		this.service = service;
+	}
+	
+	@Autowired
+	private PlaylistService playlistService;
+	
+	public void setPlaylistService(PlaylistService playlistService) {
+		this.playlistService = playlistService;
+	}
+	
+	private String getUsername(){
+		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 	
 	@RequestMapping(value = "rating")
@@ -35,6 +48,7 @@ public class RatingAndViewsController {
 		List<Track> trackList = service.getTracksByRating();
 		model.addAttribute("trackList", service.getTracksForPage(trackList, page));
 		model.addAttribute("pages", service.getPagesQuantity(trackList.size()));	
+		model.addAttribute("lists", playlistService.getPlaylistsByUsername(getUsername()));
 		return "ratingOrViews";
 	}
 	
@@ -51,6 +65,7 @@ public class RatingAndViewsController {
 		List<Track> trackList = service.getTracksByViews();
 		model.addAttribute("trackList", service.getTracksForPage(trackList, page));
 		model.addAttribute("pages", service.getPagesQuantity(trackList.size()));	
+		model.addAttribute("lists", playlistService.getPlaylistsByUsername(getUsername()));
 		return "ratingOrViews";
 	}
 	

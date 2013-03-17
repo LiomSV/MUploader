@@ -1,5 +1,6 @@
 package org.vsp.mup.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -164,4 +165,15 @@ public class Track {
 		this.events = events;
 	}
 	
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "tracks")
+	private List<Playlist> playlists = new ArrayList<Playlist>();
+
+	public List<Playlist> getPlaylists() {
+		return playlists;
+	}
+
+	public void setPlaylists(List<Playlist> playlists) {
+		this.playlists = playlists;
+	}
+
 }

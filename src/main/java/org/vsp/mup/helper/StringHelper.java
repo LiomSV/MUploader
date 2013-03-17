@@ -1,6 +1,9 @@
 package org.vsp.mup.helper;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+import org.vsp.mup.domain.Track;
 
 @Service
 public class StringHelper {
@@ -35,4 +38,54 @@ public class StringHelper {
 	
 	private static final String pattern = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 	private static final String notLetter = "#";
+	
+	/**
+	 *  Method groups all pathes of playlist's files to one string.
+	 * It's necessary for audio player.
+	 * @param tracks
+	 * @return
+	 */
+	public static String groupPlaylistFiles(List<Track> tracks){
+		if (tracks.isEmpty()) return "";
+		StringBuffer buffer = new StringBuffer();
+		for(Track track : tracks){
+			buffer.append(PATH_PREFIX);
+			buffer.append(track.getFile());
+			buffer.append(PATH_POSTFIX+",");
+		}
+		return buffer.substring(0, buffer.length()-1);
+	}
+	
+	private static final String PATH_PREFIX = "resources/mp3/";
+	private static final String PATH_POSTFIX = ".mp3";
+	
+	/**
+	 *  Method groups all titles from playlist to one string.
+	 * It's necessary for audio player.
+	 * @param tracks
+	 * @return
+	 */
+	public static String groupPlaylistTitles(List<Track> tracks){
+		if (tracks.isEmpty()) return "";
+		StringBuffer buffer = new StringBuffer();
+		for(Track track : tracks){
+			buffer.append(track.getTitle()+",");
+		}
+		return buffer.substring(0, buffer.length()-1);
+	}
+	
+	/**
+	 *  Method groups all artist names from playlist to one string.
+	 * It's necessary for audio player. 
+	 * @param tracks
+	 * @return
+	 */
+	public static String groupPlaylistArtists(List<Track> tracks){
+		if (tracks.isEmpty()) return "";
+		StringBuffer buffer = new StringBuffer();
+		for(Track track : tracks){
+			buffer.append(track.getArtist().getName()+",");
+		}
+		return buffer.substring(0, buffer.length()-1);
+	}
 }

@@ -3,12 +3,14 @@ package org.vsp.mup.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.vsp.mup.domain.Artist;
 import org.vsp.mup.service.ArtistPageService;
+import org.vsp.mup.service.PlaylistService;
 
 @Controller
 public class ArtistController {
@@ -17,6 +19,17 @@ public class ArtistController {
 	
 	public void setArtistPageService(ArtistPageService artistPageService) {
 		this.artistPageService = artistPageService;
+	}
+	
+	@Autowired
+	private PlaylistService playlistService;
+	
+	public void setPlaylistService(PlaylistService playlistService) {
+		this.playlistService = playlistService;
+	}
+	
+	private String getUsername(){
+		return SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 
 	@RequestMapping(value = "artist/{idArtist}/{page}")
@@ -28,6 +41,7 @@ public class ArtistController {
 		model.addAttribute(artist);
 		model.addAttribute("pages", artistPageService.getPagesQuantity(artist));
 		model.addAttribute("trackList", artistPageService.getTracksForPage(artist, page));
+		model.addAttribute("lists", playlistService.getPlaylistsByUsername(getUsername()));
 		return "artist";
 	}
 	

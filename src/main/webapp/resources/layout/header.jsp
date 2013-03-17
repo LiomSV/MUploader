@@ -61,7 +61,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="user"><spring:message code="header.user.profile" text="Profile" /></a></li>
-                            <li><a href="#"><spring:message code="header.user.myplaylists" text="My playlist" /></a></li>
+                            <li><a href="playlists"><spring:message code="header.user.myplaylists" text="My playlist" /></a></li>
                             <li class="divider" />
                             <li><a href="<c:url value="j_spring_security_logout" />" >
                                 <spring:message code="header.user.logout" text="Logout" />
