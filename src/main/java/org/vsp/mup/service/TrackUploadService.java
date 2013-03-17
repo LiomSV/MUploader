@@ -69,7 +69,7 @@ public class TrackUploadService {
 		correctTrack(track, artistName);
 		track.setTags(parseTagLine(tagLine));
 		track.setArtist(addArtist(new Artist(artistName)));		
-		trackDAO.saveTrack(track);		
+		trackDAO.save(track);		
 		ID3Service.updateID3(track);
 	}
 	

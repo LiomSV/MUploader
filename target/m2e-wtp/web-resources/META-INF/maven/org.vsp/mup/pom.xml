@@ -219,6 +219,12 @@
             <artifactId>entagged</artifactId>
             <version>0.35</version>
         </dependency>
+        
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.7.1</version>
+        </dependency>
               
 	</dependencies>
     <build>

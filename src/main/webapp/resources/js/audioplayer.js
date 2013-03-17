@@ -12,13 +12,13 @@ function ap_stopAll(player_id)
 			$(this).find('object')[0].SetVariable("closePlayer", 0);
 		}
 	});
-	
-	
+		
 	var idTrack = player_id.substring(player_id.indexOf("_")+1);
-	if (document.getElementById("played_"+idTrack).innerHTML == "false"){
-		var xhr = new XMLHttpRequest();               
-    	xhr.open("POST", "view/"+idTrack, true);
-        xhr.send(null);
+	if (document.getElementById("played_"+idTrack).innerHTML == "false"){       
+        $.get("view/"+idTrack, {},
+                function(data) {
+                    document.getElementById("views_"+idTrack).innerHTML = data.views;                            
+                }, "json");
         document.getElementById("played_"+idTrack).innerHTML = "true";
 	}	
 	

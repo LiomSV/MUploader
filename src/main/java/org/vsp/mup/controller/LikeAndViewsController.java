@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.vsp.mup.helper.TrackInfo;
 import org.vsp.mup.service.LikeAndViewsService;
 
 @Controller
@@ -19,26 +22,29 @@ public class LikeAndViewsController {
 		this.service = service;
 	}
 	
-	@RequestMapping(value="isliked/{idTrack}")
-	public String isLiked(Model model, HttpServletRequest request, @PathVariable Integer idTrack){					    
+	@RequestMapping(value="like/{idTrack}",  method = RequestMethod.GET)
+	public @ResponseBody TrackInfo like(Model model, HttpServletRequest request, @PathVariable Integer idTrack){					    
+		TrackInfo trackInfo = new TrackInfo();
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		return service.isLiked(idTrack, username).toString();
+		service.like(idTrack, username, trackInfo);		
+		return trackInfo;
 	}
-	
-	@RequestMapping(value="like/{idTrack}")
-	public String like(Model model, HttpServletRequest request, @PathVariable Integer idTrack){					    
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		service.like(idTrack, username);
-		return "true";
-	}
-	
 	
 	
 	@RequestMapping(value="view/{idTrack}")
-	public String view(Model model, HttpServletRequest request, @PathVariable Integer idTrack){					    
+	public @ResponseBody TrackInfo view(Model model, HttpServletRequest request, @PathVariable Integer idTrack){					    
+		TrackInfo trackInfo = new TrackInfo();
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-		service.view(idTrack, username);	
-		return "true";
+		trackInfo.setViews(service.view(idTrack, username));
+		return trackInfo;
 	}
 	
+	
+	@RequestMapping(value="isliked/{idTrack}", method = RequestMethod.GET)
+	public @ResponseBody TrackInfo isLiked(@PathVariable Integer idTrack) {
+		TrackInfo trackInfo = new TrackInfo();
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		trackInfo.setLiked(service.isLiked(idTrack, username)); 
+		return trackInfo;
+	}
 }
