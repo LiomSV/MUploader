@@ -15,9 +15,9 @@ import org.vsp.mup.helper.TagComparator;
 
 @Service
 public class HomeService {
-	private static final int TRACKS_QUANTITY = 15;
-	private static final int TAG_QUANTITY = 25;
-	private static final int[] LEVEL_TAG_QUANTITY = {25, 20, 15, 11, 7, 4, 1, 0};
+	private static final int TRACKS_QUANTITY = 10;
+	private static final int TAG_QUANTITY = 10;
+	private static final int[] LEVEL_TAG_QUANTITY = {10, 8, 7, 5, 4, 2, 1, 0};
 	
 	@Autowired
 	private TrackDAO trackDAO;
@@ -60,6 +60,7 @@ public class HomeService {
 	
 	private void countAndSortBySongs(List<Tag> tagList){
 		for(Tag tag : tagList){
+			Hibernate.initialize(tag.getTracks());
 			tag.setPopularity(tag.getTracks().size());
 		}
 		Collections.sort(tagList, new TagComparator<Tag>());

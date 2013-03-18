@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<script src="resources/js/jquery-ui-1.9.2.custom.js"></script>  
                
     <form class="" id="songEdit" action="upload/view"
             method="POST" >                    
@@ -65,5 +66,4 @@
             </div>
         </div>         
                  
-    </form>                
- 
+    </form>     

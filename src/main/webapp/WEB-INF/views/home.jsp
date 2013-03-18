@@ -59,8 +59,8 @@
                 </h3>
                 <div class="tags">				
 				    <ul>
-		                <c:forEach items="${tagList }" var="tag">
-                            <li class="tag${tag.getPopularity() }"><a href="tag/${tag.getIdTag() }/1">${tag.getTagname() }</a></li>		                
+		                <c:forEach items="${tagList }" var="tagcloud">
+                            <li class="tag${tagcloud.getPopularity() }"><a href="tag/${tagcloud.getIdTag() }/1">${tagcloud.getTagname() }</a></li>		                
 		                </c:forEach> 		                
 	                </ul>
 	            </div>	          	

@@ -52,6 +52,7 @@ public class UploadController {
 		trackUploadService.initiateTrack(track);
 		this.track = mergeTracks(this.track, track);
 		this.artistName = artistName;
+		this.tagLine = tagLine;
 		ID3Service.initID3List(id3List, track, artistName);
 		model.addAttribute("id3List", id3List);
 		return "uploadView";

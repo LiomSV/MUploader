@@ -67,19 +67,19 @@ public class TrackUploadService {
 	public void addNewTrack(Track track, String artistName, String tagLine, String username){
 		initiateTrack(track);
 		correctTrack(track, artistName);
-		track.setTags(parseTagLine(tagLine));
+		track.setTags(parseTagLine(tagLine));		
 		track.setArtist(addArtist(new Artist(artistName)));		
 		trackDAO.save(track);		
 		ID3Service.updateID3(track);
 	}
 	
 	public Set<Tag> parseTagLine(String tagLine){
-		StringTokenizer tagTokens = new StringTokenizer(tagLine, ", ", false);
+		StringTokenizer tagTokens = new StringTokenizer(tagLine, ",", false);
 		Set<Tag> tags = new HashSet<Tag>();
 		while (tagTokens.hasMoreTokens()){
 			String token = tagTokens.nextToken();
 			if (token != ""){
-				tags.add(addTag(new Tag(token)));
+				tags.add(addTag( new Tag(StringHelper.deleteSpaces(token)) ));
 			}
 		}
 		return tags;
@@ -149,5 +149,19 @@ public class TrackUploadService {
 		track.setTitle(StringHelper.deleteSpaces(track.getTitle()));
 		track.setGenre(StringHelper.deleteSpaces(track.getGenre()));
 		artistName = StringHelper.deleteSpaces(artistName);
+	}
+	
+	public String likeArray(List<Tag> tagList){
+		StringBuffer buffer = new StringBuffer("[");
+		for(Tag tag : tagList){
+			buffer.append("\"tag/" + tag.getTagname() + "\", ");
+		}
+		buffer.delete(buffer.length()-2, buffer.length());
+		buffer.append("]");
+		return new String(buffer);
+	}
+	
+	public String getAllTagLikeArray(){
+		return likeArray(tagDAO.getAllTags());
 	}
 }

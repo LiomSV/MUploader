@@ -7,7 +7,7 @@ public class TagComparator<T> implements Comparator<T> {
 
 	@Override
 	public int compare(T o1, T o2) {
-		return -((Tag)o1).getPopularity().compareTo(((Tag)o1).getPopularity());
+		return -((Tag)o1).getPopularity().compareTo(((Tag)o2).getPopularity());
 	}
 	
 }
